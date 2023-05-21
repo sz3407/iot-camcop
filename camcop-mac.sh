@@ -8,6 +8,18 @@ FILE=./pushover.json
 
 echo -e '\nCamCop (macOS) now running on machine:user <<'$(hostname)':'$(whoami)'>>\n'
 
+python_version=$(python --version)
+
+if [ -z "$python_version" ]
+then
+	cd ~
+	echo -e '\nInstalling Python requirement\n'
+	pip install python3
+	cd $PROGPATH
+else
+	echo -e 'Python installed. Version' $python_version '\n'
+fi
+
 if test -f "$FILE"; then
 	echo -e '\tLaunch time: '$(date +"%T")
 	echo -e '\nScanning...\n'
