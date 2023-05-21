@@ -37,6 +37,16 @@ def doMac():
 
 	return (app_concat, event_type)
 
+
+# ====================================== #
+#	If Windows event detection was improved this could be implemented
+#		to perform similar to doMac()
+# ====================================== #
+#def doWindows():
+
+# ====================================== #
+#	See README for Pushover setup instructions
+# ====================================== #
 def sendPushoverNotif(app_concat="", event_type=""):
 	mac_msg = app_concat + " application just " + event_type + " your webcam!"
 	win_msg = "CamCop running on your Windows machine has detected a camera event."
@@ -49,10 +59,16 @@ def sendPushoverNotif(app_concat="", event_type=""):
 	}), { "Content-type": "application/x-www-form-urlencoded" })
 	conn.getresponse()
 
+# ====================================== #
+#	The channel and token have used for testing purposes have expired and been removed. 
+#	To implement the Slack notification method, create a personal workspace and update these paths
+#		in the script file.
+#	(channel = "channel=..."), (token = "...")
+# ====================================== #
 def sendSlackNotif():
 	slack_msg = "text=Your camera was just (de)activated. Did you do that?"
-	channel = "channel=C054SAU5KNC"
-	token = "xoxb-5162368159648-5166676343475-OyHlIUnjtE2VnnSJvyaO6E9e"
+	channel = "UPDATE THIS WITH YOUR PERSONAL CHANNEL NAME"
+	token = "UPDATE THIS WITH YOUR PERSONAL TOKEN"
 	bash_cmd = 'curl -d "' + slack_msg + '" -d "' + channel + '" -H "Authorization: Bearer ' + token + '" -X POST https://slack.com/api/chat.postMessage'
 	subprocess.run(bash_cmd, stdout=subprocess.PIPE, shell=True)
 
