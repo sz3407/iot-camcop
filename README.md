@@ -17,23 +17,22 @@ For our project we chose to work with macOS and Windows. We did this because mos
 So we focused our efforts on developing solutions for users of these platforms, primarily. 
 
 Application Development
-For the scanning functionality of CamCop, we employed native logging tools provided by both the macOS and Windows operating systems. This approach was inspired by a similar technique utilized by Oversight, a third-party application for macOS that monitors for microphone and camera events [2]. To identify our logger conditions, we collected an unfiltered session of system logs during which we activated several camera applications. These logs were scanned for relevant events and the content was used to test various iterations of the filter. We also included details like device name, collected from system applications like device manager or system profiler.
+For the scanning functionality of CamCop, we employed native logging tools provided by both the macOS and Windows operating systems. This approach was inspired by a similar technique utilized by Oversight, a third-party application for macOS that monitors for microphone and camera events. To identify our logger conditions, we collected an unfiltered session of system logs during which we activated several camera applications. These logs were scanned for relevant events and the content was used to test various iterations of the filter. We also included details like device name, collected from system applications like device manager or system profiler.
 
 log stream
   --predicate 'subsystem=="com.apple.cmio"'
   --predicate 'sender contains "appleh13camerad"'
   --predicate 'composedMessage contains "CMIOExtensionProperty"'
 
-Figure 3 – Some examples of filter properties tested for detecting camera events.
+These are some examples of filter properties tested for detecting camera events.
 
 When the user launches CamCop, the application will first deploy python to the system if it is not previously installed, as this is an underlying requirement for triggering our response actions. If an event occurs while CamCop is running, a script file is called to generate the notification. The file is passed along the event log contents from which it can determine the state change and application name that caused the activation. To provide a more informative alert, these details are embedded in the message sent to the user’s device.
 
 os_ = sys.platform
-# on mac
 pid = sys.argv[6]
 process_info = subprocess.run('ps -p ' + pid, stdout=subprocess.PIPE, shell=True)
 app_ = ' '.join(sys.argv[8:])
 
-Figure 4 – The script file inside CamCop can parse information from the event log contents and make a system call to identify the responsible application from its process id (PID).
+This is the script file inside CamCop that can parse information from the event log contents and make a system call to identify the responsible application from its process id (PID).
 
-We designed CamCop to support two methods of delivery for the mobile alerts. During development we used Pushover [3], which relies on an established connection between your phone and their notification services. This was suitable for our purposes, however they limit users to a 30-day trial period before requiring a paid subscription. For our user testing we also created a Slack workspace where notifications were aggregated to expedite the demonstration of CamCop.
+We designed CamCop to support two methods of delivery for the mobile alerts. During development we used Pushover, which relies on an established connection between your phone and their notification services. This was suitable for our purposes, however they limit users to a 30-day trial period before requiring a paid subscription. For our user testing we also created a Slack workspace where notifications were aggregated to expedite the demonstration of CamCop.
