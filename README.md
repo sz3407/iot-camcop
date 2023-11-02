@@ -14,11 +14,6 @@ We use the basic idea that every process that runs on your laptop can be accesse
 Device Selection
 For our project we chose to work with macOS and Windows. We did this because most of the people we talk to everyday, irrespective of their background, usually use one of these two. In our research we also found that, as of April 2023, Windows is the most used operating system on laptops, with a market share of 69%. macOS is the second most popular operating system, with a market share of 17%. Chrome OS is the third most popular operating system, with a market share of 3.2%. Linux is the fourth most popular operating system, with a market share of 2.9%. 
 
-Here is a breakdown of the market share of the top 5 operating systems on laptops:
-
-
-Figure 2 – Market share of operating systems for laptops. [4]
-
 So we focused our efforts on developing solutions for users of these platforms, primarily. 
 
 Application Development
